@@ -1,6 +1,6 @@
 {
   "name": "@jcoreio/react-router-apply-middleware",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Composable middleware for React Router",
   "main": "lib/applyMiddleware.js",
   "repository": {
@@ -15,6 +15,7 @@
     "lint": "eslint modules",
     "start": "babel-node example/server.js",
     "test": "npm run lint && karma start",
+    "prepublish": "npm run lint && karma start --single-run && npm run build && npm run build-umd && npm run build-min",
     "postinstall": "node ./npm-scripts/postinstall.js"
   },
   "authors": [
