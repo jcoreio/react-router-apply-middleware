@@ -1,4 +1,4 @@
-import React, { cloneElement } from 'react'
+import React from 'react'
 import RouterContext from 'react-router/lib/RouterContext'
 
 export default (...middleware) => (
@@ -6,7 +6,7 @@ export default (...middleware) => (
     middleware.filter(m => m.renderRootContainer).reduceRight(
       (previous, { renderRootContainer }) => (
         (renderProps) => (
-          cloneElement(
+          React.cloneElement(
             renderRootContainer(renderProps),
             { render: previous }
           )
@@ -18,7 +18,7 @@ export default (...middleware) => (
   ))(middleware.filter(m => m.renderContainer).reduceRight(
     (previous, { renderContainer }) => (
       (RouteComponent, props) => (
-        cloneElement(
+        React.cloneElement(
           renderContainer(RouteComponent, props),
           { createElement: previous }
         )

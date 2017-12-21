@@ -38,6 +38,7 @@
     "eslint-plugin-react": "3.3.2",
     "expect": "^1.12.0",
     "express": "^4.13.3",
+    "flow-bin": "^0.56.0",
     "form-serialize": "^0.7.0",
     "gzip-size": "^3.0.0",
     "karma": "^0.13.3",
