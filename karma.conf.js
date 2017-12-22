@@ -58,7 +58,7 @@ module.exports = function (config) {
     customLaunchers: customLaunchers,
 
     browsers: [ 'Chrome' ],
-    frameworks: [ 'mocha' ],
+    frameworks: ['es6-shim',  'mocha' ],
     reporters: [ 'mocha' ],
 
     files: [

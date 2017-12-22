@@ -1,7 +1,8 @@
 /*eslint-env mocha*/
 /*eslint no-console: 0*/
 import expect from 'expect'
-import React from 'react'
+import * as React from 'react'
+import PropTypes from 'prop-types'
 import { render } from 'react-dom'
 import { Router, Route, createMemoryHistory } from 'react-router'
 import applyMiddleware from './applyMiddleware'
@@ -48,27 +49,27 @@ const FOO_ROOT_CONTAINER_TEXT = 'FOO ROOT CONTAINER'
 const BAR_ROOT_CONTAINER_TEXT = 'BAR ROOT CONTAINER'
 const BAZ_CONTAINER_TEXT = 'BAZ INJECTED'
 
-const FooRootContainer = React.createClass({
-  propTypes: {
+class FooRootContainer extends React.Component {
+  static propTypes = {
     // 1. applyMiddleware is going to pass a render prop
-    render: React.PropTypes.func
-  },
-  childContextTypes: { foo: React.PropTypes.string },
-  getChildContext() { return { foo: FOO_ROOT_CONTAINER_TEXT } },
+    render: PropTypes.func
+  }
+  static childContextTypes = { foo: PropTypes.string }
+  getChildContext() { return { foo: FOO_ROOT_CONTAINER_TEXT } }
   render() {
     // 2. all RootContainers need to render with the `render` prop and send
     //    along the bag of props it got (they came from Router)
     const { render, ...props } = this.props
     return render(props)
   }
-})
+}
 
-const FooContainer = React.createClass({
-  propTypes: {
+class FooContainer extends React.Component {
+  static propTypes = {
     // 1. applyMiddleware is going to pass a createElement prop
-    createElement: React.PropTypes.func
-  },
-  contextTypes: { foo: React.PropTypes.string.isRequired },
+    createElement: PropTypes.func
+  }
+  static contextTypes = { foo: PropTypes.string.isRequired }
   render() {
     const { createElement, Component, routerProps } = this.props
     const fooFromContext = this.context.foo
@@ -77,7 +78,7 @@ const FooContainer = React.createClass({
     //    along the Component to be rendered and the props to render with
     return createElement(Component, mergedProps)
   }
-})
+}
 
 const useFoo = () => ({
   renderRootContainer: (renderProps) => (
@@ -90,24 +91,24 @@ const useFoo = () => ({
   )
 })
 
-const BarRootContainer = React.createClass({
-  childContextTypes: { bar: React.PropTypes.string },
-  getChildContext() { return { bar: BAR_ROOT_CONTAINER_TEXT } },
+class BarRootContainer extends React.Component {
+  static childContextTypes = { bar: PropTypes.string }
+  getChildContext() { return { bar: BAR_ROOT_CONTAINER_TEXT } }
   render() {
     const { render, ...props } = this.props
     return render(props)
   }
-})
+}
 
-const BarContainer = React.createClass({
-  contextTypes: { bar: React.PropTypes.string.isRequired },
+class BarContainer extends React.Component {
+  static contextTypes = { bar: PropTypes.string.isRequired }
   render() {
     const { createElement, Component, routerProps } = this.props
     const barFromContext = this.context.bar
     const mergedProps = { ...routerProps, barFromContext }
     return createElement(Component, mergedProps)
   }
-})
+}
 
 const useBar = () => ({
   renderRootContainer: (renderProps) => (
@@ -118,13 +119,13 @@ const useBar = () => ({
   )
 })
 
-const BazContainer = React.createClass({
+class BazContainer extends React.Component {
   render() {
     const { createElement, Component, routerProps, bazInjected } = this.props
     const mergedProps = { ...routerProps, bazInjected }
     return createElement(Component, mergedProps)
   }
-})
+}
 
 const useBaz = (bazInjected) => ({
   renderContainer: (Component, props) => (
