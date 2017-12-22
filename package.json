@@ -5,9 +5,9 @@
   "main": "lib/applyMiddleware.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ryanflorence/react-router-apply-middleware.git"
+    "url": "https://github.com/jcoreio/react-router-apply-middleware.git"
   },
-  "bugs": "https://github.com/ryanflorence/react-router-apply-middleware/issues",
+  "bugs": "https://github.com/jcoreio/react-router-apply-middleware/issues",
   "scripts": {
     "build": "babel ./modules -d lib --ignore '__tests__'",
     "build-umd": "NODE_ENV=production webpack modules/applyMiddleware.js umd/ReactRouterApplyMiddleware.js",
